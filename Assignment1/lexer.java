@@ -49,6 +49,18 @@ class lexer {
 		tokens = new tokenList();
 		fileParser fileOutput = new fileParser(_fileName);
 		ArrayList<String> list = fileOutput.getList();
+		for (String token : list){
+			String type = scanner.testString(token);
+			// System.out.println(token + "  " + type);
+			if(type != null){
+				tokens.addToken(token, type);
+			}else{
+				System.out.println("Lexical Error: " + token);
+				return null;
+			}
+
+		}
+		
 
 		//Reads a word from the fileParser and tests it, adds to list if valid
 
