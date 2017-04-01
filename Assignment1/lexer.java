@@ -60,10 +60,7 @@ class lexer {
 			}
 
 		}
-		
-
 		//Reads a word from the fileParser and tests it, adds to list if valid
-
 		return tokens;
 	}
 
