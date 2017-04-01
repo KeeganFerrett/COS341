@@ -1,3 +1,6 @@
+import java.util.*;
+
+
 class lexer {
 
 	private regexList scanner;
@@ -44,6 +47,8 @@ class lexer {
 
 	public tokenList parseFile(String _fileName) {
 		tokens = new tokenList();
+		fileParser fileOutput = new fileParser(_fileName);
+		ArrayList<String> list = fileOutput.getList();
 
 		//Reads a word from the fileParser and tests it, adds to list if valid
 
