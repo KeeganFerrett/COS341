@@ -1,0 +1,4 @@
+output (  "pasffffghhrhrsds")
+output ( " hlo wrld")
+proc{   output("hey)}
+halt

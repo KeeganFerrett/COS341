@@ -1,0 +1,20 @@
+output ("pass")
+output ("input 3")
+input one
+input two
+input three
+
+if (one> two) {
+    if (one > three)
+        output one
+    else
+        output three
+}
+else{
+    if(two > three)
+        output two
+    else
+        output three
+}
+
+halt
