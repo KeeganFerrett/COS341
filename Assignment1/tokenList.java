@@ -56,7 +56,7 @@ class tokenList {
 
 		tokens.addToken("varas22", "Variable");
 		tokens.addToken("518433", "Integer");
-		tokens.addToken("FuckME", "String");
+		tokens.addToken("fightMe", "String");
 
 		String print = tokens.toString();
 		System.out.println(print);

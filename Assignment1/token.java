@@ -14,4 +14,12 @@ class token {
 		String temp = "[" + input + "," + inputType + "," + tokenID + "]";
 		return temp;
 	}
+
+	public String getType() {
+		return inputType;
+	}
+
+	public String getInput() {
+		return input;
+	}
 }
