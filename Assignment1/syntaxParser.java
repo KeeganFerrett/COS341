@@ -362,7 +362,7 @@ class syntaxParser {
  	public void error(String err){
  		
  		if(temp != null){
- 			System.out.println("ERROR: " + err + "-> "+ temp.getType() + ": " + temp.getInput());
+ 			System.out.println("SYNTAX ERROR: " + err + "-> "+ temp.getType() + ": " + temp.getInput());
  		}else{
  			System.out.println("Unexpected end of line");
  		}
