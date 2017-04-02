@@ -14,13 +14,13 @@ class syntaxTreeList {
 		}
 
 		public String toString() {
-			String temp = "[" + input + "," + descrp + "," + type + "," + id + "]";
+			String temp = "[" + input + "," + descrp + "," + type + "," + id + "]\n";
 			return temp;
 		}
 	}
 
 	private int idCounter;
-	private syntaxTreeList head;
+	private syntaxToken head;
 
 	public syntaxTreeList() {
 		idCounter = 0;
@@ -28,7 +28,7 @@ class syntaxTreeList {
 	}
 
 	public void addNode(String _input, String _descrp, String _type) {
-		String id = String.format("%08d", tokenID++);
+		String id = String.format("%08d", idCounter++);
 		syntaxToken temp = new syntaxToken(_input, _descrp, _type, id);
 
 		if (head == null) {
@@ -41,5 +41,30 @@ class syntaxTreeList {
 			trans = trans.next;
 		}
 		trans.next = temp;
+	}
+
+	public String toString() {
+		String temp = "";
+		syntaxToken trans = head;
+
+		while (trans != null) {
+			temp = temp + trans.toString();
+			trans = trans.next;
+		}
+
+		return temp;
+	}
+
+	//Test main
+	public static void main(String[] args) {
+		syntaxTreeList test = new syntaxTreeList();
+
+		test.addNode("Prog", "Non-Terminal Node", "-");
+		test.addNode("Code", "Non-Terminal Node", "-");
+		test.addNode("Instruction", "Non-Terminal Node", "-");
+		test.addNode("Halt", "Terminal Node", "Special Command");
+		test.addNode(";", "Terminal Node", "Grouping Symbol");
+
+		System.out.println(test.toString());
 	}
 }

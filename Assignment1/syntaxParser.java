@@ -6,30 +6,39 @@ class syntaxParser {
 	token temp ;
 	tokenList list;
 
+	//Will be returned in depth first order
+	syntaxTreeList tree;
+
  	public syntaxParser(tokenList tokens){
  		temp = tokens.pop();
  		list = tokens;
  		
+ 		tree = new syntaxTreeList();
  	}
  	public String parse(){
  		parseProg();
  		if(temp != null){
- 			error("Unexpected End");
+ 			error("Unexpected End, Empty Lexer List");
  		}
- 		return "Parsed!!";
+
+ 		tree.addNode("$", "End Symbol", "-");
+ 		return tree.toString();
  	}
 
  	public void parseProg(){
-		System.out.println("ParseProg");
+		//System.out.println("ParseProg");
+		//parseProg();
 
  		if (temp == null) error("Unexpected End");
+ 		tree.addNode("Prog", "Non-Terminal", "-");
  		parseCode();
  		parseProc_2();
  	}
 
  	public void parseCode(){
-
-		System.out.println("ParseCode");
+ 		tree.addNode("Code", "Non-Terminal", "-");
+		//System.out.println("ParseCode");
+ 		
  		if(temp == null)
  			return;
 
@@ -54,7 +63,8 @@ class syntaxParser {
  	public void parseProc_2(){
  		if(temp == null)
  			return;
-		System.out.println("ParseProc_2");
+		//System.out.println("ParseProc_2");
+		tree.addNode("Proc_2", "Non-Terminal", "-");
 
  		if(temp.getInput().equals(";")){
  			eat(";");
@@ -67,7 +77,8 @@ class syntaxParser {
  	}
 
  	public void parseInstr(){
-		System.out.println("ParseInstr");
+		//System.out.println("ParseInstr");
+		tree.addNode("Instr", "Non-Terminal", "-");
 
 		if(temp == null){
  			error("Unexpected End of file");
@@ -97,7 +108,9 @@ class syntaxParser {
  	}
 
  	public void parseProc_Def(){
-		System.out.println("ParseProc_Def");
+		//System.out.println("ParseProc_Def");
+		tree.addNode("Proc_Def", "Non-Terminal", "-");
+
 		if(temp == null)
  			return;
 
@@ -111,7 +124,8 @@ class syntaxParser {
 
 
  	public void parseProc(){
-		System.out.println("ParseProc");
+		//System.out.println("ParseProc");
+		tree.addNode("Proc", "Non-Terminal", "-");
 
  		if(temp == null)
  			return;
@@ -128,7 +142,8 @@ class syntaxParser {
 
 
  	public void parseCalc(){
-		System.out.println("ParseCalc");
+		//System.out.println("ParseCalc");
+		tree.addNode("Instr", "Non-Terminal", "-");
 
 		if(temp == null){
  			error("Unexpected End of file");
@@ -146,7 +161,8 @@ class syntaxParser {
 
 
  	public void parseNumExpr(){
-		System.out.println("ParseNumExpr");
+		//System.out.println("ParseNumExpr");
+		tree.addNode("NumExpr", "Non-Terminal", "-");
 
 		if(temp == null){
  			error("Unexpected End of file");
@@ -163,7 +179,8 @@ class syntaxParser {
 
 
  	public void parseAssign(){
-		System.out.println("ParseAssign");
+		//System.out.println("ParseAssign");
+		tree.addNode("Assign", "Non-Terminal", "-");
 
 		if(temp == null){
  			error("Unexpected End of file");
@@ -178,7 +195,8 @@ class syntaxParser {
 
 
  	public void parseIO(){
-		System.out.println("ParseIO");
+		//System.out.println("ParseIO");
+		tree.addNode("IO", "Non-Terminal", "-");
 
 		if(temp == null){
  			error("Unexpected End of file");
@@ -194,7 +212,8 @@ class syntaxParser {
 
 
  	public void parseBool(){
-		System.out.println("ParseBool");
+		//System.out.println("ParseBool");
+		tree.addNode("Bool", "Non-Terminal", "-");
 
 		if(temp == null){
  			error("Unexpected End of file");
@@ -228,7 +247,8 @@ class syntaxParser {
  	}
 
  	public void parseCond_Loop(){
-		System.out.println("ParseCond_loop");
+		//System.out.println("ParseCond_loop");
+		tree.addNode("Cond_Loop", "Non-Terminal", "-");
 
 		if(temp == null){
  			error("Unexpected End of file");
@@ -273,7 +293,9 @@ class syntaxParser {
 
 
  	public void parseElse_Branch(){
-		System.out.println("ParseElse_Branch");
+		//System.out.println("ParseElse_Branch");
+ 		tree.addNode("Else_Branch", "Non-Terminal", "-");
+
  		if(temp == null)
  			return;
  		if(temp.getInput().equals("else") ){
@@ -286,8 +308,8 @@ class syntaxParser {
 
 
  	public void parseCond_Branch(){
-		System.out.println("ParseCond_Branch");
-
+		//System.out.println("ParseCond_Branch");
+ 		tree.addNode("Cond_Branch", "Non-Terminal", "-");
 
 		if(temp == null){
  			error("Unexpected End of file");
@@ -308,7 +330,8 @@ class syntaxParser {
  	}
 
  	public void parseVar_Branch(){
-		System.out.println("ParseVar_Branch");
+		//System.out.println("ParseVar_Branch");
+		tree.addNode("Var_Branch", "Non-Terminal", "-");
 
 		if(temp == null){
  			error("Unexpected End of file");
@@ -325,7 +348,9 @@ class syntaxParser {
 
 
  	public void parseProc_Def_2(){
-		System.out.println("ParseProc_Def_2");
+		//System.out.println("ParseProc_Def_2");
+		tree.addNode("Proc_Def_2", "Non-Terminal", "-");
+
  		if(temp == null)
  			return;
  		if(temp.getInput().equals("proc") ){
@@ -335,7 +360,8 @@ class syntaxParser {
 
 
  	public void parseComp_Symbol(){
-		System.out.println("ParseComp_Symbol");
+		//System.out.println("ParseComp_Symbol");
+		tree.addNode("Comp_Symbol", "Non-Terminal", "-");
 
 		if(temp == null){
  			error("Unexpected End of file");
@@ -354,6 +380,7 @@ class syntaxParser {
  			error("Unexpected End of file");
  			return;
  		}
+ 		tree.addNode(temp.getInput(), "Terminal", temp.getType());
  		if(exp.equals(temp.getType()) || exp.equals(temp.getInput())){
  			System.out.println("Eating: "  +  temp.getInput());
 			temp = list.pop();
