@@ -10,3 +10,7 @@ proc n {
  		}
  	}
 }
+
+
+//need to check semi-colons
+//can`t start with proc needs at leaset a halt; after it
