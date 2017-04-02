@@ -1,20 +1,7 @@
-output ("pass")
-output ("input 3")
-input one
-input two
-input three
-
-if (one> two) {
-    if (one > three)
-        output one
-    else
-        output three
+proc g {
+	num = 5;
+	output(yes);
+	for(x = 0; x < y ; n = add(n,1)){
+		output(hi);
+	}
 }
-else{
-    if(two > three)
-        output two
-    else
-        output three
-}
-
-halt

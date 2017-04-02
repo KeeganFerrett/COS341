@@ -1,1 +1,4 @@
-output "This test case should fail" output "Hello World!" halt!
+output(x)
+output(w)
+output(pp)
+var = "people"

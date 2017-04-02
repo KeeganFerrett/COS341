@@ -15,10 +15,11 @@ class fileParser {
 		list = new ArrayList<String>();
 		try {
 			//Gets Lines
-
+			String code = "";
 			for (String line : Files.readAllLines(Paths.get(_fileName))) {
-				parseLine(line);
+				code += line + " ";
 			}
+				parseLine(code);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -38,6 +39,7 @@ class fileParser {
 		line = line.replaceAll(";", "-;-");
 		line = line.replaceAll(",", "-,-");
 		line = line.replaceAll("=", "-=-");
+		line = line.replaceAll("\t", " ");
 		//Goes through lines and picks up the tokens and adds them to token array list
 		line = removeStringSpaces(line);
 		// System.out.println("Whole Line: " + line);

@@ -15,12 +15,12 @@ class regexList {
 	public regexList() {
 		//Variables
 		stringPattern = new regexTest("\"[\\W\\w]{0,8}\"", "Short string");
-		decimalPattern = new regexTest("-?[1-9][0-9]*","Integer");
+		decimalPattern = new regexTest("0|(-?[1-9][0-9]*)","Integer"); //ADDED 0
 		//Kinda just wanted to do these for shits gigs
 		charPattern = new regexTest("\"[\\W\\w]\"", "Character");
 		booleanPattern = new regexTest("(true|false|1|0)", "Boolean");
 		floatPattern = new regexTest("-?[0-9]*\\.[0-9]*", "Float");
-		userDefined = new regexTest("[a-z][a-z 0-9]*","User-defined Name");
+		userDefined = new regexTest("[a-z][a-z 0-9]*","UserDefinedName");
 		//Key words list
 		keyWords = new ArrayList<regexTest>();
 	}

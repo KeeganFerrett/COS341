@@ -1,22 +1,4 @@
 class tokenList {
-
-	class token {
-		private String input = "";
-		private String inputType = "";
-		private String tokenID = "";
-		public token next = null;
-
-		public token(String _input, String _inputType, String _tokenID) {
-			input = _input;
-			inputType = _inputType;
-			tokenID = _tokenID;
-		}
-
-		public String toString() {
-			String temp = "[" + input + "," + inputType + "," + tokenID + "]";
-			return temp;
-		}
-	}
 	int tokenID;
 	token head;
 
@@ -27,8 +9,14 @@ class tokenList {
 
 	public token pop(){
 		token temp = head;
-		head = head.next;
+		if(head != null){
+			head = head.next;
+		}
 		return temp;
+	}
+
+	public token peek(){
+		return head;
 	}
 
 	public void addToken(String _input, String _inputType) {

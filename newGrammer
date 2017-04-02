@@ -6,38 +6,35 @@
  CODE -> ; CODE
  INSTR -> halt
  INSTR -> IO
- INSTR -> VAR
+ INSTR -> UserDefinedName
  INSTR -> ASSIGN
  INSTR -> COND_BRANCH
  INSTR -> COND_LOOP
  CALC -> add ( NUMEXPR , NUMEXPR )
  CALC -> sub ( NUMEXPR , NUMEXPR )
  CALC -> mult ( NUMEXPR , NUMEXPR )
- NUMEXPR -> VAR
+ NUMEXPR -> UserDefinedName
  NUMEXPR -> Number
  NUMEXPR -> CALC
- VAR -> UserDefinedName
- ASSIGN -> VAR = VAR_BRANCH
- IO -> input ( VAR )
- IO -> output ( VAR )
- BOOL -> eq ( VAR , VAR )
- BOOL -> ( VAR COM_SYMBOL VAR )
+ ASSIGN -> UserDefinedName = VAR_BRANCH
+ IO -> input ( UserDefinedName )
+ IO -> output ( UserDefinedName )
+ BOOL -> eq ( UserDefinedName , UserDefinedName )
+ BOOL -> ( UserDefinedName COM_SYMBOL UserDefinedName )
  BOOL -> and ( BOOL , BOOL )
  BOOL -> or ( BOOL , BOOL )
  BOOL -> not BOOL
  COND_BRANCH -> if ( BOOL ) then { CODE } ELSE_BRANCH 
  COND_LOOP -> while ( BOOL ) { CODE }
- COND_LOOP -> for ( VAR = 0 ; VAR < VAR ; VAR = add ( VAR , 1 ) ) { CODE }
+ COND_LOOP -> for ( UserDefinedName = 0 ; UserDefinedName < UserDefinedName ; UserDefinedName = add ( UserDefinedName , 1 ) ) { CODE }
  ELSE_BRANCH -> else { CODE }
  ELSE_BRANCH -> 
  VAR_BRANCH -> String
- VAR_BRANCH -> VAR
- VAR_BRANCH -> NEMEXPR
+ VAR_BRANCH -> UserDefinedName
+ VAR_BRANCH -> NuMEXPR
  PROG_2 -> 
  PROG_2 -> ; PROC
  PROC_DEFS_2 -> 
  PROC_DEFS_2 -> PROC_DEFS
  COM_SYMBOL -> <
  COM_SYMBOL -> >
-
- http://jsmachines.sourceforge.net/machines/ll1.html

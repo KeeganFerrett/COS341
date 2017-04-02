@@ -1,4 +1,12 @@
-output (  "pasffffghhrhrsds")
-output ( " hlo wrld")
-proc{   output("hey)}
-halt
+output(x);
+output(y);
+halt;
+proc n {
+ 	proc n { 
+ 		output(o);
+ 		proc g {
+ 			num = 5;
+ 			output(yes);
+ 		}
+ 	}
+}
