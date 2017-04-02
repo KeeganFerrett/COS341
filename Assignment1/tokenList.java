@@ -25,6 +25,12 @@ class tokenList {
 		head = null;
 	}
 
+	public token pop(){
+		token temp = head;
+		head = head.next;
+		return temp;
+	}
+
 	public void addToken(String _input, String _inputType) {
 		String id = String.format("%08d", tokenID++);
 

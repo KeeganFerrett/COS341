@@ -37,6 +37,7 @@ class fileParser {
 		line = line.replaceAll("\\<", "-\\<-");
 		line = line.replaceAll(";", "-;-");
 		line = line.replaceAll(",", "-,-");
+		line = line.replaceAll("=", "-=-");
 		//Goes through lines and picks up the tokens and adds them to token array list
 		line = removeStringSpaces(line);
 		// System.out.println("Whole Line: " + line);
