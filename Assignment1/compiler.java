@@ -12,6 +12,11 @@ class compiler {
 		tokenList tokens;
 		syntaxParser parser;
 
+		if (args.length =< 0) {
+			System.out.println("Error, no file given. Exiting now.");
+			return;
+		}
+
 		lexer lexer = new lexer();
 		tokens = lexer.parseFile("../Tests/" + args[0]);
 		if(tokens == null){
@@ -26,7 +31,11 @@ class compiler {
 		try{
 			fw = new FileWriter(FILENAME1);
 			bw = new BufferedWriter(fw);
+
 			System.out.println(lexTokens);
+			System.out.println("Lexing Complete");
+			System.out.println();
+
 			bw.write(lexTokens);
 		
 		} catch (IOException e) {
@@ -60,7 +69,9 @@ class compiler {
 			fw = new FileWriter(FILENAME2);
 			bw = new BufferedWriter(fw);
 
-			// System.out.println(ret);
+			System.out.println(ret);
+			System.out.println("Parsing Complete");
+			System.out.println();
 
 			bw.write(ret);
 		
