@@ -5,13 +5,20 @@ class syntaxParser {
  	
 	token temp ;
 	tokenList list;
+	//Used as a flag to determine the level of abstraction
+	//0 = no abstraction
+	//1 = low abstraction (Just missing semi colons)
+	//2 = high abstraction (All grouping symbols gone)
+	int abstractionLevel;
 
 	//Will be returned in depth first order
 	syntaxTreeList tree;
 
- 	public syntaxParser(tokenList tokens){
+ 	public syntaxParser(tokenList tokens, int _abstractionLevel){
  		temp = tokens.pop();
  		list = tokens;
+
+ 		abstractionLevel = _abstractionLevel;
  		
  		tree = new syntaxTreeList();
  	}
@@ -385,9 +392,12 @@ class syntaxParser {
  			error("Unexpected End of file");
  			return;
  		}
- 		tree.addNode(temp.getInput(), "Terminal", temp.getType());
  		if(exp.equals(temp.getType()) || exp.equals(temp.getInput())){
  			System.out.println("Eating: "  +  temp.getInput());
+ 			
+ 			if ((abstractionLevel == 0) || (abstractionLevel == 1 && !temp.getInput().equals(";")) || (abstractionLevel == 2 && !temp.getType().equals("Grouping symbol"))) {	
+ 				tree.addNode(temp.getInput(), "Terminal", temp.getType());
+ 			}
 			temp = list.pop();
 		} else error("Token is not expected ");
  	}
