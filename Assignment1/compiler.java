@@ -11,10 +11,16 @@ class compiler {
 		//Will call both lexer and syntax from here
 		tokenList tokens;
 		syntaxParser parser;
+		int abtractionLevel = 0;
 
-		if (args.length =< 0) {
+		if (args.length == 0) {
 			System.out.println("Error, no file given. Exiting now.");
 			return;
+		}
+
+		if (args.length == 3 && args[1].equals("-abstract")) {
+			abtractionLevel = Integer.parseInt(args[2]);
+			System.out.println("Abstract Level of" + abtractionLevel + " requested for syntax parsing");
 		}
 
 		lexer lexer = new lexer();
@@ -60,7 +66,7 @@ class compiler {
 
 		}
 
-		parser = new syntaxParser(tokens);
+		parser = new syntaxParser(tokens, abtractionLevel);
 
 		String ret = parser.parse();
 
