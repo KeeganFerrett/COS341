@@ -15,7 +15,13 @@ class syntaxParser {
  		
  		tree = new syntaxTreeList();
  	}
+
  	public String parse(){
+ 		//check f it starts with proc
+ 		if(temp.getInput().equals("proc")){
+ 			error("Incorrect start of file");
+ 		}
+
  		parseProg();
  		if(temp != null){
  			error("Unexpected End, Empty Lexer List");
@@ -54,7 +60,6 @@ class syntaxParser {
  			parseInstr();
  			parseCode();
  		}else{
-
  			return;
  		}
  	}
