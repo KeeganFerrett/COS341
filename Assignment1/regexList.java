@@ -18,7 +18,7 @@ class regexList {
 		decimalPattern = new regexTest("0|(-?[1-9][0-9]*)","Integer"); //ADDED 0
 		//Kinda just wanted to do these for shits gigs
 		charPattern = new regexTest("\"[\\W\\w]\"", "Character");
-		booleanPattern = new regexTest("(true|false|1|0)", "Boolean");
+		//booleanPattern = new regexTest("(true|false|1|0)", "Boolean");
 		floatPattern = new regexTest("-?[0-9]*\\.[0-9]*", "Float");
 		userDefined = new regexTest("[a-z][a-z 0-9]*","UserDefinedName");
 		//Key words list
@@ -64,11 +64,11 @@ class regexList {
 		}
 
 		//Testing for boolean
-		type = booleanPattern.testString(_test);
+		/*type = booleanPattern.testString(_test);
 		if (type != null) {
 			//System.out.println(type);
 			return type;
-		}
+		}*/
 
 		type = floatPattern.testString(_test);
 		if (type != null) {
