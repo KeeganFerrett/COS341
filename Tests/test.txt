@@ -1,4 +1,4 @@
-output(x
+12output(x);
 if (eq(z,h)) then {
 	input(y);
 }
