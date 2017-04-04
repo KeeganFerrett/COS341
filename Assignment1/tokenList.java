@@ -1,3 +1,5 @@
+//u15132847 and u15011713
+//Keegan Ferrett and Nikki Constancon
 class tokenList {
 	int tokenID;
 	token head;
