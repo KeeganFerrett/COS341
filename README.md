@@ -1,2 +1,2 @@
 # COS341
-Compiler Construction
+University of Pretoria: Compiler Construction
