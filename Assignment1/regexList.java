@@ -16,7 +16,7 @@ class regexList {
 
 	public regexList() {
 		//Variables
-		stringPattern = new regexTest("\"[a-z ]{0,8}\"", "Short string"); //removed \\W\\w since it should only be small roman characters
+		stringPattern = new regexTest("\"[a-z 0-9]{0,8}\"", "Short string"); //removed \\W\\w since it should only be small roman characters
 		decimalPattern = new regexTest("0|(-?[1-9][0-9]*)","Integer"); //ADDED 0
 		//Kinda just wanted to do these for shits gigs
 		charPattern = new regexTest("\"[\\W\\w]\"", "Character");
