@@ -52,7 +52,7 @@ class fileParser {
 				if(tokens[t].charAt(0) >=0 && tokens[t].charAt(0) == '\"'){
 					tokens[t] = addStringSpaces(tokens[t]);	
 				}
-				 System.out.println(tokens[t]);
+				 //System.out.println(tokens[t]);
 				list.add(tokens[t]);	
 			}
 		}

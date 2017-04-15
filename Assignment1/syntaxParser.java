@@ -15,6 +15,8 @@ class syntaxParser {
 
 	//Will be returned in depth first order
 	syntaxTreeList tree;
+	//The physical syntax Tree
+	syntaxTree realTree;
 
  	public syntaxParser(tokenList tokens, int _abstractionLevel){
  		temp = tokens.pop();
@@ -23,6 +25,11 @@ class syntaxParser {
  		abstractionLevel = _abstractionLevel;
  		
  		tree = new syntaxTreeList();
+ 		realTree = new syntaxTree();
+ 	}
+
+ 	public syntaxTree getTree() {
+ 		return realTree;
  	}
 
  	public String parse(){
@@ -37,6 +44,7 @@ class syntaxParser {
  		}
 
  		tree.addNode("$", "End Symbol", "-");
+ 		realTree.addNode("$", "End Symbol", "-", 0);
  		return tree.toString();
  	}
 
@@ -46,6 +54,7 @@ class syntaxParser {
 
  		if (temp == null) error("Unexpected End");
  		tree.addNode("Prog", "Non-Terminal", "-");
+ 		realTree.addNode("Prog", "Non-Terminal", "-", 2);
  		parseCode();
  		parseProc_2();
  	}
@@ -54,31 +63,39 @@ class syntaxParser {
  		tree.addNode("Code", "Non-Terminal", "-");
 		//System.out.println("ParseCode");
  		
- 		if(temp == null)
+ 		if(temp == null) {
+ 			realTree.addNode("Proc_2", "Non-Terminal", "-", 0);
  			return;
+ 		}
 
  		if(temp.getType().equals("UserDefinedName")){
+ 			realTree.addNode("Code", "Non-Terminal", "-", 2);
  			parseInstr();
  			parseCode();
  		}
  		else if(temp.getInput().equals(";")){
+ 			realTree.addNode("Code", "Non-Terminal", "-", 1);
  			eat(";");
  			parseCode();
  		}
  		else if(temp.getInput().equals("input") || temp.getInput().equals("output") ||temp.getInput().equals("halt") || temp.getInput().equals("if") || temp.getInput().equals("while") || temp.getInput().equals("for") ){
+ 			realTree.addNode("Code", "Non-Terminal", "-", 2);
  			parseInstr();
  			parseCode();
  		}else{
+ 			realTree.addNode("Code", "Non-Terminal", "-", 0);
  			return;
  		}
  	}
 
 
  	public void parseProc_2(){
- 		if(temp == null)
+ 		if(temp == null) {
  			return;
+ 		}
 		//System.out.println("ParseProc_2");
 		tree.addNode("Proc_2", "Non-Terminal", "-");
+		realTree.addNode("Proc_2", "Non-Terminal", "-", 1);
 
  		if(temp.getInput().equals(";")){
  			eat(";");
@@ -97,9 +114,10 @@ class syntaxParser {
 		if(temp == null){
  			error("Unexpected End of file");
  		}
+		realTree.addNode("Instr", "Non-Terminal", "-", 1);
 
  		if(temp.getType().equals("UserDefinedName")){
- 			System.out.println(list.peek());
+ 			//System.out.println(list.peek());
  			// System.out.println("INSTR : UserDefinedName");
  			if(list.peek() != null && list.peek().getInput().equals("=") ){
  				parseAssign();
@@ -125,10 +143,13 @@ class syntaxParser {
 		//System.out.println("ParseProc_Def");
 		tree.addNode("Proc_Def", "Non-Terminal", "-");
 
-		if(temp == null)
+		if(temp == null) {
+ 			realTree.addNode("Proc_Def", "Non-Terminal", "-", 0);
  			return;
+		}
 
 		if(temp.getInput().equals("proc") ){
+			realTree.addNode("Proc_Def", "Non-Terminal", "-", 2);
 			parseProc();
 			parseProc_Def();
 		} else {
@@ -141,9 +162,12 @@ class syntaxParser {
 		//System.out.println("ParseProc");
 		tree.addNode("Proc", "Non-Terminal", "-");
 
- 		if(temp == null)
+ 		if(temp == null) {
  			return;
+ 		}
+
  		if(temp.getInput().equals("proc") ){
+ 			realTree.addNode("Proc", "Non-Terminal", "-", 3);
 			eat("proc");
 			eat("UserDefinedName");
 			eat("{");
@@ -157,13 +181,14 @@ class syntaxParser {
 
  	public void parseCalc(){
 		//System.out.println("ParseCalc");
-		tree.addNode("Instr", "Non-Terminal", "-");
+		tree.addNode("Calc", "Non-Terminal", "-");
 
 		if(temp == null){
  			error("Unexpected End of file");
  		}
 
  		if(temp.getType().equals("Number operator") ){
+ 			realTree.addNode("Calc", "Non-Terminal", "-", 3);
  			eat("Number operator");
  			eat("(");
  			parseNumExpr();
@@ -183,10 +208,13 @@ class syntaxParser {
  		}
 
  		if(temp.getType().equals("UserDefinedName") ){
+ 			realTree.addNode("NumExpr", "Non-Terminal", "-", 1);
  			eat("UserDefinedName");
  		} else if(temp.getType().equals("Number operator")){
+ 			realTree.addNode("NumExpr", "Non-Terminal", "-", 1);
  			parseCalc();
  		}else if(temp.getType().equals("Integer")){ //ADDED
+ 			realTree.addNode("NumExpr", "Non-Terminal", "-", 1);
  			eat("Integer");
  		}else error("NUMEXPR Expecting UDN , Number operator");
  	}
@@ -201,6 +229,7 @@ class syntaxParser {
  		}
 
  		if(temp.getType().equals("UserDefinedName") ){
+ 			realTree.addNode("Assign", "Non-Terminal", "-", 3);
  			eat("UserDefinedName");
  			eat("=");
  			parseVar_Branch();
@@ -217,6 +246,7 @@ class syntaxParser {
  		}
 
  		if(temp.getType().equals("I/O command") ){
+ 			realTree.addNode("IO", "Non-Terminal", "-", 2);
  			eat("I/O command");
  			eat("(");
  			eat("UserDefinedName");
@@ -234,12 +264,14 @@ class syntaxParser {
  		}
 
  		if(temp.getInput().equals("(") ){
+ 			realTree.addNode("Boolean", "Non-Terminal", "-", 3);
  			eat("(");
  			eat("UserDefinedName");
  			parseComp_Symbol();
  			eat("UserDefinedName");
  			eat(")");
  		} else if(temp.getInput().equals("eq")){
+ 			realTree.addNode("Boolean", "Non-Terminal", "-", 3);
  			eat("eq");
  			eat("(");
  			eat("UserDefinedName");
@@ -247,6 +279,7 @@ class syntaxParser {
  			eat("UserDefinedName");
  			eat(")");
  		}else if(temp.getInput().equals("and") || temp.getInput().equals("or")){
+ 			realTree.addNode("Boolean", "Non-Terminal", "-", 3);
  			eat("Boolean operator");
  			eat("(");
  			parseBool();
@@ -254,6 +287,7 @@ class syntaxParser {
  			parseBool();
  			eat(")");
  		}else if(temp.getInput().equals("not")){
+ 			realTree.addNode("Boolean", "Non-Terminal", "-", 2);
  			eat("not");
  			parseBool();
  		}else error("BOOL Expecting boolean def");
@@ -269,6 +303,7 @@ class syntaxParser {
  		}
 
  		if(temp.getInput().equals("while") ){
+ 			realTree.addNode("Cond_Loop", "Non-Terminal", "-", 3);
  			eat("while");
  			eat("(");
  			parseBool();
@@ -278,6 +313,7 @@ class syntaxParser {
  			eat("}");
 
  		}else if(temp.getInput().equals("for") ){
+ 			realTree.addNode("Cond_Loop", "Non-Terminal", "-", 13);
  			eat("for");
  			eat("(");
  			eat("UserDefinedName");
@@ -310,9 +346,12 @@ class syntaxParser {
 		//System.out.println("ParseElse_Branch");
  		tree.addNode("Else_Branch", "Non-Terminal", "-");
 
- 		if(temp == null)
+ 		if(temp == null) {
+ 			realTree.addNode("Else_Branch", "Non-Terminal", "-", 0);
  			return;
+ 		}
  		if(temp.getInput().equals("else") ){
+ 			realTree.addNode("Else_Branch", "Non-Terminal", "-", 2);
  			eat("else");
  			eat("{");
  			parseCode();
@@ -330,6 +369,7 @@ class syntaxParser {
  		}		
 
  		if(temp.getInput().equals("if") ){
+ 			realTree.addNode("Cond_Branch", "Non-Terminal", "-", 5);
  			eat("if");
  			eat("(");
  			parseBool();
@@ -352,10 +392,13 @@ class syntaxParser {
  		}
 
  		if(temp.getType().equals("UserDefinedName") ){
+ 			realTree.addNode("Var_Branch", "Non-Terminal", "-", 1);
  			eat("UserDefinedName");
  		}else if(temp.getType().equals("Short string")){
+ 			realTree.addNode("Var_Branch", "Non-Terminal", "-", 1);
  			eat("Short string");
 		}else if(temp.getType().equals("Integer") || temp.getType().equals("Number operator")){
+			realTree.addNode("Var_Branch", "Non-Terminal", "-", 1);
 			parseNumExpr();
 		}else error("Var_BRANCH Expecting UDN , string, int");
  	}
@@ -368,6 +411,7 @@ class syntaxParser {
  		if(temp == null)
  			return;
  		if(temp.getInput().equals("proc") ){
+ 			realTree.addNode("Proc_Def_2", "Non-Terminal", "-", 1);
  			parseProc_Def();
  		}else return;
  	}
@@ -382,8 +426,10 @@ class syntaxParser {
  		}
 
  		if(temp.getInput().equals("<")){
+ 			realTree.addNode("Comp_Symbol", "Non-Terminal", "-", 1);
  			eat("<");
  		} else if (temp.getInput().equals(">")){
+ 			realTree.addNode("Comp_Symbol", "Non-Terminal", "-", 1);
  			eat(">");
  		}else error("COMP_SYMBOL Expecting <,>");
  	}
@@ -395,10 +441,11 @@ class syntaxParser {
  			return;
  		}
  		if(exp.equals(temp.getType()) || exp.equals(temp.getInput())){
- 			System.out.println("Eating: "  +  temp.getInput());
+ 			//System.out.println("Eating: "  +  temp.getInput());
  			
  			if ((abstractionLevel == 0) || (abstractionLevel == 1 && !temp.getInput().equals(";")) || (abstractionLevel == 2 && !temp.getType().equals("Grouping symbol"))) {	
  				tree.addNode(temp.getInput(), "Terminal", temp.getType());
+ 				realTree.addNode(temp.getInput(), "Terminal", temp.getType(), 0);
  			}
 			temp = list.pop();
 		} else error("Token is not expected ");

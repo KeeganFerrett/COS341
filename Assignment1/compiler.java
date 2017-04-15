@@ -22,7 +22,7 @@ class compiler {
 
 		if (args.length == 3 && args[1].equals("-abstract")) {
 			abtractionLevel = Integer.parseInt(args[2]);
-			System.out.println("Abstract Level of" + abtractionLevel + " requested for syntax parsing");
+			System.out.println("Abstract Level of " + abtractionLevel + " requested for syntax parsing");
 		}
 
 		lexer lexer = new lexer();
@@ -40,9 +40,9 @@ class compiler {
 			fw = new FileWriter(FILENAME1);
 			bw = new BufferedWriter(fw);
 
-			System.out.println(lexTokens);
+			//System.out.println(lexTokens);
 			System.out.println("Lexing Complete");
-			System.out.println();
+			//System.out.println();
 
 			bw.write(lexTokens);
 		
@@ -77,9 +77,9 @@ class compiler {
 			fw = new FileWriter(FILENAME2);
 			bw = new BufferedWriter(fw);
 
-			System.out.println(ret);
+			//System.out.println(ret);
 			System.out.println("Parsing Complete");
-			System.out.println();
+			//System.out.println();
 
 			bw.write(ret);
 		
@@ -104,6 +104,8 @@ class compiler {
 			}
 
 		}
-
+		syntaxTree realTree = parser.getTree();
+		realTree.printTreeBreath();
+		System.out.println(realTree.getDepthFirst());
 	}
 }
