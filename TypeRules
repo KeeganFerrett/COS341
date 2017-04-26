@@ -1,0 +1,120 @@
+ALWAYS CHECK THAT NOTHING HAS ALREADY BEEN SET SOMEHOW
+UNSURE HOW TO RESOLVE THE 'o' PROBLEM
+
+ PROG -> CODE PROG_2	
+ 	if CODE ='w' and PROG_2 = 'w' then PROG :='w'
+
+ PROC_DEFS -> PROC PROC_DEFS_2
+ 	if PROC ='w' and PROC_DEFS_2 = 'w' then PROC_DEFS :='w'
+
+ PROC -> proc UserDefinedName { PROG }
+ 	if PROG = 'w' then PROC = 'w' and UDN = 'p'
+
+ CODE -> INSTR CODE
+ 	if INSTR = 'w' and CODE = 'w' then CODE = 'w'
+
+ CODE ->
+ 	CODE := 'w'
+
+ CODE -> ; CODE
+ 	if CODE = 'w' then CODE := 'w'
+
+ INSTR -> halt
+ 	then INSTR = 'w'
+
+ INSTR -> IO
+ 	if IO = 'w' then INSTR ='w'
+
+ INSTR -> UserDefinedName
+ 	then UDN = 'p' and INSTR = 'w'
+
+ INSTR -> ASSIGN
+ 	if ASSIGN = 'w' then INSTR = 'w'
+
+ INSTR -> COND_BRANCH
+ 	if COND_BRANCH = 'w' then INSTR = 'w'
+
+ INSTR -> COND_LOOP
+ 	if COND_LOOP = 'w' then INSTR = 'w'
+
+ CALC -> add ( NUMEXPR1st , NUMEXPR2nd )
+ 	if NUMEXPR1st = NUMEXPR2nd = 'n' then CALC = 'n'
+
+ CALC -> sub ( NUMEXPR1st , NUMEXPR2nd )
+ 	if NUMEXPR1st = NUMEXPR2nd = 'n' then CALC = 'n'
+
+ CALC -> mult ( NUMEXPR1st , NUMEXPR2nd )
+ 	if NUMEXPR1st = NUMEXPR2nd = 'n' then CALC = 'n'
+
+ NUMEXPR -> UserDefinedName
+ 	then UDN = 'n' and NUMEXPR = 'n'
+
+ NUMEXPR -> Number
+ 	then NUMEXPR = 'n' and Number = 'n'
+
+ NUMEXPR -> CALC
+ 	if CALC = 'n' then NUMEXPR = 'n'
+
+ ASSIGN -> UserDefinedName = VAR_BRANCH
+ 	then UDN = VAR_BRANCH and ASSIGN = 'w'
+
+ IO -> input ( UserDefinedName )
+ 	then UDN = 'n' and IO = 'w'
+
+ IO -> output ( UserDefinedName )
+ 	then UDN = 'o' and IO = w
+
+ BOOL -> eq ( UserDefinedName_1st , UserDefinedName_2nd )
+ 	then BOOL = 'b' and UDN1st = 'o' and UDN2nd = 'o'
+
+ BOOL -> ( UserDefinedName_1st COM_SYMBOL UserDefinedName_2nd )
+ 	then UDN1st = 'n' and UDN2nd = 'n'
+
+ BOOL -> and ( BOOL , BOOL )
+ 	if BOOL_RIGHT_1st = 'b' AND BOOL_RIGHT_2nd = 'b' then BOOL_LEFT = 'b'
+
+ BOOL -> or ( BOOL , BOOL )
+ 	if BOOL_RIGHT_1st = 'b' AND BOOL_RIGHT_2nd = 'b' then BOOL_LEFT = 'b'
+
+ BOOL -> not BOOL
+ 	if BOOL_RIGHT = 'b' then BOOL_LEFT = 'b'
+
+ COND_BRANCH -> if ( BOOL ) then { CODE } ELSE_BRANCH 
+ 	if BOOL = 'b' and CODE = 'w' then  COND_BRANCH = 'w'
+
+ COND_LOOP -> while ( BOOL ) { CODE }
+ 	if BOOL = 'b' and CODE = 'w' then  COND_BRANCH = 'w'
+
+ COND_LOOP -> for ( UserDefinedName = 0 ; UserDefinedName < UserDefinedName ; UserDefinedName = add ( UserDefinedName , 1 ) ) { CODE }
+ 	if all UDN = 'n' and CODE = 'w' then COND_LOOP = 'w'
+
+ ELSE_BRANCH -> else { CODE }
+ 	if CODE = 'w' then ELSE_BRANCH = 'w'
+
+ ELSE_BRANCH -> 
+ 	then ELSE_BRANCH = 'w'
+
+ VAR_BRANCH -> String
+ 	VAR_BRACK = 's'
+
+ VAR_BRANCH -> UserDefinedName
+ 	???
+
+ VAR_BRANCH -> NUMEXPR
+ 	if NUMEXPR = 'n' then VAR_BRANCH = 'n'
+
+ PROG_2 -> 
+ 	then PROG_2 = 'w'
+
+ PROG_2 -> ; PROC
+ 	if PROC = 'w' then PROG_2 = 'w'
+
+ PROC_DEFS_2 -> 
+ 	PROC_DEFS_2 = 'w'
+
+ PROC_DEFS_2 -> PROC_DEFS
+ 	if PROC_DEFS_2 = 'w' then PROC_DEFS = 'w'
+
+ COM_SYMBOL -> <
+
+ COM_SYMBOL -> >
