@@ -8,6 +8,8 @@ class compiler {
 
 	private static final String FILENAME1 = "../Output/lexer";
 	private static final String FILENAME2 = "../Output/syntax";
+	private static final String FILENAME3 = "../Output/vTable";
+	private static final String FILENAME4 = "../Output/fTable";
 
 	public static void main(String[] args) {
 		//Will call both lexer and syntax from here
@@ -24,6 +26,8 @@ class compiler {
 			abtractionLevel = Integer.parseInt(args[2]);
 			System.out.println("Abstract Level of " + abtractionLevel + " requested for syntax parsing");
 		}
+
+		abtractionLevel = 2;
 
 		lexer lexer = new lexer();
 		tokens = lexer.parseFile("../Tests/" + args[0]);
@@ -69,19 +73,26 @@ class compiler {
 		}
 
 		parser = new syntaxParser(tokens, abtractionLevel);
-
+		System.out.println("Parsing Complete");
 		String ret = parser.parse();
 
+		//syntaxTree realTree = parser.getTree();
+		//realTree.printTreeBreath();
+		//System.out.println(realTree.getDepthFirst());
+
+		symbolLookup sl = new symbolLookup(parser.getList().head);
+		symbolTable vTable = sl.getVTable();
+		symbolTable fTable = sl.getFTable();
 
 		try{
 			fw = new FileWriter(FILENAME2);
 			bw = new BufferedWriter(fw);
 
 			//System.out.println(ret);
-			System.out.println("Parsing Complete");
+			
 			//System.out.println();
 
-			bw.write(ret);
+			bw.write(parser.getList().toString());
 		
 		} catch (IOException e) {
 
@@ -104,8 +115,62 @@ class compiler {
 			}
 
 		}
-		syntaxTree realTree = parser.getTree();
-		realTree.printTreeBreath();
-		System.out.println(realTree.getDepthFirst());
+		try{
+			fw = new FileWriter(FILENAME3);
+			bw = new BufferedWriter(fw);
+			bw.write(vTable.toString());
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+		}finally {
+
+			try {
+
+				if (bw != null)
+					bw.close();
+
+				if (fw != null)
+					fw.close();
+
+			} catch (IOException ex) {
+
+				ex.printStackTrace();
+
+			}
+
+		}
+		try{
+			fw = new FileWriter(FILENAME4);
+			bw = new BufferedWriter(fw);
+			bw.write(fTable.toString());
+
+			//System.out.println(ret);
+			System.out.println("Type and Scope Checking Complete");
+			//System.out.println();
+
+		
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+		}finally {
+
+			try {
+
+				if (bw != null)
+					bw.close();
+
+				if (fw != null)
+					fw.close();
+
+			} catch (IOException ex) {
+
+				ex.printStackTrace();
+
+			}
+
+		}
+		System.out.println("Compiler Finished");
 	}
 }

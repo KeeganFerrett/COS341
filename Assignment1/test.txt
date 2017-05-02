@@ -1,4 +1,4 @@
-output(x);
-if (eq(z,h)) then {
-	input(y);
-}
+x = 3
+y = "Hello"
+
+proc Nicaedin() { }

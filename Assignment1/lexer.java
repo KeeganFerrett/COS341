@@ -26,8 +26,8 @@ class lexer {
 		//These are problems
 		scanner.addReservedWord("\\(", "Grouping symbol");
 		scanner.addReservedWord("\\)", "Grouping symbol");	
-		scanner.addReservedWord("\\{", "Grouping symbol");	
-		scanner.addReservedWord("\\}", "Grouping symbol");	
+		scanner.addReservedWord("\\{", "Scope symbol");	
+		scanner.addReservedWord("\\}", "Scope symbol");	
 		scanner.addReservedWord(",", "Grouping symbol");	
 		scanner.addReservedWord(";", "Grouping symbol");	
 

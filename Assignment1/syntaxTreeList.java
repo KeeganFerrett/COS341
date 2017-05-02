@@ -1,32 +1,18 @@
 //u15132847 and u15011713
 //Keegan Ferrett and Nikki Constancon
 class syntaxTreeList {
-	public class syntaxToken {
-		private String input = "";
-		private String descrp = "";
-		private String type = "";
-		private String id = "";
-		public syntaxToken next = null;
-
-		public syntaxToken(String _input, String _descrp, String _type, String _id) {
-			input = _input;
-			descrp = _descrp;
-			type = _type;
-			id = _id;
-		}
-
-		public String toString() {
-			String temp = "[" + input + "," + descrp + "," + type + "," + id + "]\n";
-			return temp;
-		}
-	}
-
 	private int idCounter;
-	private syntaxToken head;
+	public syntaxToken head;
 
 	public syntaxTreeList() {
 		idCounter = 0;
 		head = null;
+	}
+
+	public syntaxToken pop(){
+		syntaxToken temp = head;
+		head = head.next;
+		return temp;
 	}
 
 	public void addNode(String _input, String _descrp, String _type) {

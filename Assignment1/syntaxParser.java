@@ -32,6 +32,10 @@ class syntaxParser {
  		return realTree;
  	}
 
+ 	public syntaxTreeList getList() {
+ 		return tree;
+ 	}
+
  	public String parse(){
  		//check f it starts with proc
  		if(temp.getInput().equals("proc")){

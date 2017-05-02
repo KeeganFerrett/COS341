@@ -32,21 +32,21 @@ class fileParser {
 	}
 
 	public void parseLine(String line){
-		line = line.replaceAll("\\(", "-\\(-");
-		line = line.replaceAll("\\)", "-\\)-");
-		line = line.replaceAll("\\{", "-\\{-");
-		line = line.replaceAll("\\}", "-\\}-");
-		line = line.replaceAll("\\>", "-\\>-");
-		line = line.replaceAll("\\<", "-\\<-");
-		line = line.replaceAll(";", "-;-");
-		line = line.replaceAll(",", "-,-");
-		line = line.replaceAll("=", "-=-");
+		line = line.replaceAll("\\(", "#\\(#");
+		line = line.replaceAll("\\)", "#\\)#");
+		line = line.replaceAll("\\{", "#\\{#");
+		line = line.replaceAll("\\}", "#\\}#");
+		line = line.replaceAll("\\>", "#\\>#");
+		line = line.replaceAll("\\<", "#\\<#");
+		line = line.replaceAll(";", "#;#");
+		line = line.replaceAll(",", "#,#");
+		line = line.replaceAll("=", "#=#");
 		line = line.replaceAll("\t", " ");
 		//Goes through lines and picks up the tokens and adds them to token array list
 		line = removeStringSpaces(line);
 		
 		 /////////////////System.out.println("Whole Line: " + line);
-		String[] tokens = line.split(" |-"); //NOT SURE ABOUT ,
+		String[] tokens = line.split(" |#"); //NOT SURE ABOUT ,
 		for(int t = 0; t < tokens.length; t++){
 			if(!tokens[t].trim().isEmpty()){
 				if(tokens[t].charAt(0) >=0 && tokens[t].charAt(0) == '\"'){
